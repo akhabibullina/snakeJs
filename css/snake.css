@@ -2,3 +2,26 @@ body * {
    margin: 0;
    padding: 0;
 }
+
+#main {
+   float: left;
+}
+
+#sidebar {
+    float: right;
+    height: 200px;
+    margin: 25px 0;
+    width: 600px;
+}
+
+#start-fight {
+/*   position: absolute;
+   top: 10px;
+   left: 50px;*/
+}
+
+#game-area {
+   height: 300px;
+   width: 600px;
+   margin: 25px 0 0 25px;
+}
