@@ -7,5 +7,6 @@
  * We also put responsibility that it should handle all the board staff.
  */
 Snake.Board = Snake.Board || (function() {
- // end return function
+    
+    // end return function
 })();
