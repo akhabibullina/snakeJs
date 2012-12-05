@@ -8,9 +8,9 @@ body * {
 }
 
 #sidebar {
-    float: right;
+    float: left;
     height: 200px;
-    margin: 25px 0;
+    margin: 25px 20px;
     width: 600px;
 }
 
