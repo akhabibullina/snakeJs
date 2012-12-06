@@ -2,30 +2,39 @@
  * Use requirejs since it limits the scope and thus prevents namespace conflicts.
  */
 requirejs.config({
-   baseUrl: "js",
-   paths: {
-      "lib": "lib",
-      "jquery": "lib/jquery.min"
-   },
-   shim: {
-      'lib/raphael': {
-         exports: 'Raphael'
-      }
-   }
+    baseUrl: "js",
+    paths: {
+        "lib": "lib",
+        "jquery": "lib/jquery.min"
+    //      "raphael": "lib/raphael"
+    }
+//   shim: {
+//      'lib/raphael': {
+//         exports: 'Raphael'
+//      }
+//   }
 });
 
-define(['board'], function(Board) {
-   var canvas = document.getElementById('game-area');
-   var mySnakeBoard = new Board({ "gamePlay" : canvas});
+define(['board', 'food', 'snake', 'jquery'], function(Board, Food, Snake, $) {
+    var gameArea = document.getElementById('game-area');
+    var mySnakeBoard = new Board({
+        "gamePlay" : gameArea
+    });
+    var mySnakeFood = new Food(document.getElementById('food'));
+    var mySnake = new Snake(document.getElementById('snake'));
 
-//// Creates canvas 320 × 200 at 10, 50
-//var paper = Raphael(10, 50, 320, 200);
-//
-//// Creates circle at x = 50, y = 40, with radius 10
-//var circle = paper.circle(50, 40, 10);
-//// Sets the fill attribute of the circle to red (#f00)
-//circle.attr("fill", "#f00");
-//
-//// Sets the stroke attribute of the circle to white
-//circle.attr("stroke", "#fff");
+    $('#start-fight').click(function(){
+//        $(this).attr('disabled', true);
+        var playBoardCoordinates = {
+            'x': mySnakeBoard.offsetX + 10,
+            'y': mySnakeBoard.offsetY +10,
+            'width': mySnakeBoard.width - 10,
+            'height': mySnakeBoard.height - 10
+            };
+        mySnakeFood.drawFood(playBoardCoordinates);
+        // todo: prevent snake and food were on the same cell
+        // todo draw the snake with raphael
+        mySnake.drawSnake(playBoardCoordinates);
+    })
+
 });
