@@ -26,10 +26,10 @@ define(['board', 'food', 'snake', 'jquery'], function(Board, Food, Snake, $) {
     $('#start-fight').click(function(){
 //        $(this).attr('disabled', true);
         var playBoardCoordinates = {
-            'x': mySnakeBoard.offsetX + 10,
-            'y': mySnakeBoard.offsetY +10,
-            'width': mySnakeBoard.width - 10,
-            'height': mySnakeBoard.height - 10
+            'x': mySnakeBoard.offsetX + 10, // top margin + border
+            'y': mySnakeBoard.offsetY + 10, // left margin + border
+            'width': mySnakeBoard.width,
+            'height': mySnakeBoard.height
             };
         mySnakeFood.drawFood(playBoardCoordinates);
         // todo: prevent snake and food were on the same cell

@@ -17,9 +17,11 @@ define(['jquery'], function($) {
     }
 
     function getRandomPosition(limitCoordinates) {
-       var x = Math.floor((Math.random()*(limitCoordinates.height)));
-       var y = Math.floor((Math.random()*(limitCoordinates.width)));
-       return {'x': x, 'y': y}
+        var rangeX = (limitCoordinates.height - limitCoordinates.x);
+        var rangeY = (limitCoordinates.width - limitCoordinates.y);
+        var x = Math.floor((Math.random() * rangeX) + limitCoordinates.x);
+        var y = Math.floor((Math.random() * rangeY) + limitCoordinates.y);
+        return {'x': x, 'y': y}
     }
 
     return Snake;
