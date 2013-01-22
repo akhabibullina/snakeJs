@@ -18,11 +18,7 @@ requirejs.config({
     // todo: divs, canvas and raphael approached will be implemented, separate them or add appropriate settings.
     define(['board', 'food', 'snake', 'jquery'], function(Board, Food, Snake, $) {
         var gameArea = document.getElementById('game-area');
-        var mySnakeBoard = new Board({
-            "gamePlay" : gameArea
-        });
-        var mySnakeFood = new Food(); // (document.getElementById('food'));
-        var mySnake = new Snake();    // (document.getElementById('snake'));
+        var mySnakeBoard = new Board({ "gamePlay": gameArea });
 
         $('#start-fight').click(function(){
             // $(this).attr('disabled', true);
@@ -31,15 +27,14 @@ requirejs.config({
                 'y': mySnakeBoard.offsetY + 10, // left margin + border
                 'width': mySnakeBoard.width,
                 'height': mySnakeBoard.height
-                };
-            mySnakeFood.drawFood(playBoardCoordinates);
-            // todo: prevent snake and food were on the same cell
-            // todo draw the snake with raphael
-            mySnake.drawSnake(playBoardCoordinates);
+            };
+
+            var mySnake = new Snake(playBoardCoordinates);
+            var mySnakeFood = new Food(playBoardCoordinates);
         })
 
         $('#stop-fight').click(function () {
-
+            // Reset the play board.
         })
 
 });

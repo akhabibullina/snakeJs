@@ -5,13 +5,19 @@
 * Contains playingBoard (the Snake.Board that this food resides in).
 */
 
-define(['game', 'jquery'], function(Game, $) {
-    Food = function (inputData) {
-        this.el = inputData;
+define(['game', 'jquery'], function (Game, $) {
+    var food;
+
+    Food = function (boardParams) {
+        this.food = this.drawFood(boardParams);
     }
 
     Food.prototype.drawFood = function (boardParams) {
         Game.prototype.drawElement(boardParams);
+    }
+
+    Food.prototype.eraseFood = function () {
+        // Clear the piece and generate a new one
     }
 
     return Food;
