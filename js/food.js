@@ -8,6 +8,7 @@
 define(['game', 'jquery'], function (Game, $) {
     var food;
 
+
     Food = function (boardParams) {
         this.food = this.drawFood(boardParams);
     }
