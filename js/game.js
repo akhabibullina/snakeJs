@@ -2,11 +2,15 @@
 * The base class for the keeping the common functionality.
 * @class game
 */
+
+// todo create a 'defaults' or 'settings' object to store the options.
+// todo: exclude dependencies
 define(['jquery'], function ($) {
 
     var radius = 8;
     var side = radius * 2;
     var emittedElements = []; // contains coordinates of already emitted elements.
+    var score = 0;
 
     // Default constructor
     Game = function () {
@@ -15,6 +19,14 @@ define(['jquery'], function ($) {
 
     Game.prototype.getSide = function () {
         return side;
+    }
+
+    Game.prototype.getScore = function () {
+        return score;
+    }
+
+    Game.prototype.setScore = function (value) {
+        score = value;
     }
 
     // Display an svg element on play board.
@@ -45,7 +57,14 @@ define(['jquery'], function ($) {
         var coordinates = findBestCoordinates(emittedElements, randomCoordinates);
         
         if (isSnake) {
-            // todo: Add the tail if needed.
+            // Add the tail if needed.
+            // todo finish it
+            //var snake = Snake.prototype.getSnake();
+            //if (snake != {}) {
+            //    // do not use random coordinates, use SnakeX+side and SnakeY+side instead
+            //    coordinates.randX = snake.node.attr.rect.x + side;
+            //    coordinates.randY = snake.node.attr.rect.y + side;
+            //}
             // Creates a rectangular for snake body element.
             var rect = paper.rect(coordinates.randX, coordinates.randY, side, side);
             rect.attr("fill", "#006666"); // todo: set color as constant in snake

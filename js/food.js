@@ -8,16 +8,20 @@
 define(['game', 'jquery'], function (Game, $) {
     var food;
 
-
     Food = function (boardParams) {
-        this.food = this.drawFood(boardParams);
+        food = this.drawFood(boardParams);
     }
 
     Food.prototype.drawFood = function (boardParams) {
-        Game.prototype.drawElement(boardParams);
+        return  Game.prototype.drawElement(boardParams);
     }
 
-    Food.prototype.eraseFood = function () {
+    Food.prototype.getFood = function () {
+        return food || {};
+    }
+
+    Food.prototype.eraseFood = function (food) {
+        // console.log(food);
         // Clear the piece and generate a new one
     }
 
