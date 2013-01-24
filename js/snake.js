@@ -7,7 +7,7 @@ define(['game', 'board', 'food', 'jquery'], function (Game, Board, Food, $) {
     var snake;
     var intId = 0;
     var keyPressed = 0;
-    var speed = 10; // ms
+    var speed = 500; // ms
     var side = Game.prototype.getSide() + 1; // 1 stand for the snake border
     var newPoints = 5;
 
@@ -16,7 +16,10 @@ define(['game', 'board', 'food', 'jquery'], function (Game, Board, Food, $) {
         i = 0;
         $('body').keydown(function (ev) {
             // Clear last handler if the key is different.
+			
             if (keyPressed !== ((ev.which) || (ev.keyCode))) {
+			console.log('keyPressed '+keyPressed);
+			console.log('new key '+((ev.which) || (ev.keyCode)));
                 clearInterval(intId);
                 intId = setInterval(function () {
                     Snake.prototype.moveSnake(ev, boardParams)
@@ -60,16 +63,19 @@ define(['game', 'board', 'food', 'jquery'], function (Game, Board, Food, $) {
                 break;
 
             case 38: // up arrow
+				keyPressed = 38;
                 calculatedX = snake.attrs.x;
                 calculatedY = snake.attrs.y - side;
                 break;
 
             case 39: // right arrow
+				keyPressed = 39;
                 calculatedX = snake.attrs.x + side;
                 calculatedY = snake.attrs.y;
                 break;
 
             case 40: // down arrow
+				keyPressed = 40;
                 calculatedX = snake.attrs.x;
                 calculatedY = snake.attrs.y + side;
                 break;
@@ -109,10 +115,10 @@ define(['game', 'board', 'food', 'jquery'], function (Game, Board, Food, $) {
 
         // todo side should be related to radius
         // todo check why right and bottom coming doesn't work
-        if ((snakeX + side / 2 >= foodX && snakeX <= foodX)
-         && (snakeY + side / 2 >= foodY && snakeY <= foodY)) {
+        if ((snakeX + side/2 >= foodX && snakeX <= foodX)
+         && (snakeY + side/2 >= foodY && snakeY <= foodY)) {
             alert(1);
-            //this.stopMove();
+            this.stopMove();
             //Food.prototype.eraseFood(food);
             //this.increaseTail();
             //this.increaseScore();
