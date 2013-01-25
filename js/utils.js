@@ -24,14 +24,14 @@ define(['jquery'], function ($) {
           return side;
        },
        setSide: function (value) {
-           score = value;
-           $('#total-score span').text(score);
+          side = value;
        },
        getScore: function () {
           return score;
        },
        setScore: function (value) {
-          score = value;
+           score = value;
+           $('#total-score span').text(score);
        },
        // Generate random x and y coordinates for a new element display.
        getRandomPosition: function (limitCoordinates) {
