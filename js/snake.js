@@ -1,41 +1,41 @@
-﻿/**
+/**
   * @module Snake
   * @class Snake
   */
 
-define(['game', 'food', 'jquery'], function (Game, Food, $) {
-    var bp;
+define(['utils', 'food', 'board', 'jquery'], function (GameUtils, Food, Board, $) {
+    var boardParams;
     var snake;
+    var snakeColor = '#006666';
     var intId = 0;
     var keyPressed = 0;
+    var keyCodes = {'left': 37, 'up': 38, 'right': 39, 'down': 40};
     var speed = 500; // ms
-    var side = Game.prototype.getSide() + 1; // 1 stand for the snake border
-    var newPoints = 5;
+    var side = GameUtils.getSide();
+    var newPoints = 5; // increased score points
 
-    Snake = function (boardParams) {
-        bp = boardParams;
+    // Constructor
+    var Snake = function () {
+        var gameArea = document.getElementById('game-area');
+        boardParams = new Board({"board": gameArea});
         snake = this.drawSnake(boardParams);
-        i = 0;
         $('body').keydown(function (ev) {
-            // Clear last handler if the key is different.
-			
-            if (keyPressed !== ((ev.which) || (ev.keyCode))) {
-			//console.log('keyPressed '+keyPressed);
-			//console.log('new key '+((ev.which) || (ev.keyCode)));
+            var isDifferentKeyPressed = keyPressed !== ((ev.which) || (ev.keyCode));
+            if (isDifferentKeyPressed) {
+            //console.log('keyPressed '+keyPressed);
+            //console.log('new key '+((ev.which) || (ev.keyCode)));
                 clearInterval(intId);
                 intId = setInterval(function () {
                     Snake.prototype.moveSnake(ev, boardParams)
-                }, 100);
+                }, speed);
             }
         });
     }
 
-    //Snake.prototype.getSnake() = function () {
-    //    return snake || {}
-    //}
-
     Snake.prototype.drawSnake = function (boardParams) {
-        return Game.prototype.drawElement(boardParams, true);
+        var randomCoordinates = GameUtils.getRandomPosition(boardParams);
+        return GameUtils.drawElement(boardParams, randomCoordinates,
+                                    {name: 'rect', color: snakeColor});
     }
 
     // Detect its movements;
@@ -58,36 +58,36 @@ define(['game', 'food', 'jquery'], function (Game, Food, $) {
         arrows = ((ev.which) || (ev.keyCode));
 
         switch (arrows) {
-            case 37: // left arrow
-                keyPressed = 37;
+            case keyCodes.left:
+                keyPressed = keyCodes.left;
                 calculatedX = snake.attrs.x - side;
                 calculatedY = snake.attrs.y;
                 break;
 
-            case 38: // up arrow
-				keyPressed = 38;
+            case keyCodes.up:
+                keyPressed = keyCodes.up;
                 calculatedX = snake.attrs.x;
                 calculatedY = snake.attrs.y - side;
                 break;
 
-            case 39: // right arrow
-				keyPressed = 39;
+            case keyCodes.right:
+                keyPressed = keyCodes.right;
                 calculatedX = snake.attrs.x + side;
                 calculatedY = snake.attrs.y;
                 break;
 
-            case 40: // down arrow
-				keyPressed = 40;
+            case keyCodes.down:
+                keyPressed = keyCodes.down;
                 calculatedX = snake.attrs.x;
                 calculatedY = snake.attrs.y + side;
                 break;
         }
 
-        return { 'x': calculatedX, 'y': calculatedY }
+        return {'x': calculatedX, 'y': calculatedY}
     }
 
     Snake.prototype.animateSnake = function (calculatedX, calculatedY) {
-        var anim = Raphael.animation({ x: calculatedX, y: calculatedY }, speed);
+        var anim = Raphael.animation({x: calculatedX, y: calculatedY}, 1);
         snake.animate(anim);
     }
 
@@ -101,7 +101,7 @@ define(['game', 'food', 'jquery'], function (Game, Food, $) {
          || calculatedY < boardLimitTop
          || calculatedY > boardLimitBottom) {
             this.stopMoving();
-            alert('Yup, you failed!');
+            alert('Yup, you failed! Try again..');
         }
     }
 
@@ -120,19 +120,44 @@ define(['game', 'food', 'jquery'], function (Game, Food, $) {
          && (snakeY + side >= foodY && snakeY <= foodY)) {
             console.log('scary snake eats nice food');
             Food.prototype.replaceFood();
-            // this.increaseTail();
+            this.increaseTail();
             this.increaseScore();
             this.increaseSpeed();
         }
     }
 
+   // Add the tail if needed.
     Snake.prototype.increaseTail = function () {
-        this.drawSnake();
+      var tailX, tailY;
+      var snakeX = parseInt(snake.node.attributes.x.nodeValue),
+          snakeY = parseInt(snake.node.attributes.y.nodeValue);
+
+      switch (keyPressed) {
+         case keyCodes.left:
+            tailX = snakeX + side;
+            tailY = snakeY;
+            break;
+         case keyCodes.up:
+            tailX = snakeX;
+            tailY = snakeY + side;
+            break;
+         case keyCodes.right:
+            tailX = snakeX - side;
+            tailY = snakeY;
+            break;
+         case keyCodes.down:
+            tailX = snakeX;
+            tailY = snakeY - side;
+            break;
+      }
+      var coordinates = {'x': tailX, 'y': tailY};
+      var tail = GameUtils.drawElement(boardParams, coordinates, {name: 'rect', color: 'red'});
+      tail.animateWith(snake);
     }
 
     Snake.prototype.increaseScore = function () {
-        var currentScore = Game.prototype.getScore();
-        Game.prototype.setScore(currentScore + newPoints);
+        var currentScore = GameUtils.getScore();
+        GameUtils.setScore(currentScore + newPoints);
     }
 
     Snake.prototype.increaseSpeed = function () {
