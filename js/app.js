@@ -27,12 +27,11 @@ requirejs.config({
             var borderWidth = parseInt(style.getPropertyValue('border-top-width')); // the same value for each side.
             var mySnake = new Snake(myBoard);
             var myFood = new Food(myBoard);
-            // todo: update value in runtime
-            $('<div>Score: ' + Game.prototype.getScore() + '</div>').insertAfter('#stop-fight');
+            $('#total-score').show();
         })
 
         $('#stop-fight').click(function () {
-            Snake.prototype.stopMove();
+            Snake.prototype.stopMoving();
         })
 
 });

@@ -3,7 +3,8 @@
   * @class Snake
   */
 
-define(['game', 'board', 'food', 'jquery'], function (Game, Board, Food, $) {
+define(['game', 'food', 'jquery'], function (Game, Food, $) {
+    var bp;
     var snake;
     var intId = 0;
     var keyPressed = 0;
@@ -12,14 +13,15 @@ define(['game', 'board', 'food', 'jquery'], function (Game, Board, Food, $) {
     var newPoints = 5;
 
     Snake = function (boardParams) {
+        bp = boardParams;
         snake = this.drawSnake(boardParams);
         i = 0;
         $('body').keydown(function (ev) {
             // Clear last handler if the key is different.
 			
             if (keyPressed !== ((ev.which) || (ev.keyCode))) {
-			console.log('keyPressed '+keyPressed);
-			console.log('new key '+((ev.which) || (ev.keyCode)));
+			//console.log('keyPressed '+keyPressed);
+			//console.log('new key '+((ev.which) || (ev.keyCode)));
                 clearInterval(intId);
                 intId = setInterval(function () {
                     Snake.prototype.moveSnake(ev, boardParams)
@@ -98,14 +100,14 @@ define(['game', 'board', 'food', 'jquery'], function (Game, Board, Food, $) {
          || calculatedX > boardLimitRight
          || calculatedY < boardLimitTop
          || calculatedY > boardLimitBottom) {
-            this.stopMove();
+            this.stopMoving();
+            alert('Yup, you failed!');
         }
     }
 
-    Snake.prototype.stopMove = function () {
-        alert('Yup, you failed!');
+    Snake.prototype.stopMoving = function () {
         clearInterval(intId);
-        $('body').unbind('keypress');
+        $('body').unbind('keydown');
     }
 
     Snake.prototype.handleSnakeMeetsFood = function (snakeX, snakeY) {
@@ -114,15 +116,13 @@ define(['game', 'board', 'food', 'jquery'], function (Game, Board, Food, $) {
         var foodY = food.node.cy.animVal.value;
 
         // todo side should be related to radius
-        // todo check why right and bottom coming doesn't work
-        if ((snakeX + side/2 >= foodX && snakeX <= foodX)
-         && (snakeY + side/2 >= foodY && snakeY <= foodY)) {
-            alert(1);
-            this.stopMove();
-            //Food.prototype.eraseFood(food);
-            //this.increaseTail();
-            //this.increaseScore();
-            //this.increaseSpeed();
+        if ((snakeX + side >= foodX && snakeX <= foodX)
+         && (snakeY + side >= foodY && snakeY <= foodY)) {
+            console.log('scary snake eats nice food');
+            Food.prototype.replaceFood();
+            // this.increaseTail();
+            this.increaseScore();
+            this.increaseSpeed();
         }
     }
 
@@ -136,7 +136,7 @@ define(['game', 'board', 'food', 'jquery'], function (Game, Board, Food, $) {
     }
 
     Snake.prototype.increaseSpeed = function () {
-        speed -= 10;
+        speed -= 100;
     }
 
     return Snake;

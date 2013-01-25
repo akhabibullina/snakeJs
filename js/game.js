@@ -17,6 +17,15 @@ define(['jquery'], function ($) {
 
     }
 
+    Game.prototype.getEmittedElements = function () {
+        return emittedElements;
+    }
+
+
+    Game.prototype.setEmittedElements = function (newElements) {
+        emittedElements = newElements;
+    }
+
     Game.prototype.getSide = function () {
         return side;
     }
@@ -27,6 +36,7 @@ define(['jquery'], function ($) {
 
     Game.prototype.setScore = function (value) {
         score = value;
+        $('#total-score span').text(score);
     }
 
     // Display an svg element on play board.
@@ -38,13 +48,14 @@ define(['jquery'], function ($) {
 
     // Generate random x and y coordinates for a new element display.
     Game.prototype.getRandomPosition = function (limitCoordinates) {
+
         // If the game area has border than calculate the available field.
-        var topMargin  = limitCoordinates.y + parseInt(limitCoordinates.borderWidth);
+        var topMargin = limitCoordinates.y + parseInt(limitCoordinates.borderWidth);
         var leftMargin = limitCoordinates.x + parseInt(limitCoordinates.borderWidth);
 
-        var rangeX = (limitCoordinates.width  - leftMargin);
+        var rangeX = (limitCoordinates.width - leftMargin);
         var rangeY = (limitCoordinates.height - topMargin);
-        var x = Math.floor(getRandomArbitary(limitCoordinates.x, limitCoordinates.width  - side));
+        var x = Math.floor(getRandomArbitary(limitCoordinates.x, limitCoordinates.width - side));
         var y = Math.floor(getRandomArbitary(limitCoordinates.y, limitCoordinates.height - side));
         return { 'x': x, 'y': y }
     }
@@ -95,6 +106,7 @@ define(['jquery'], function ($) {
             return { 'randX': randX, 'randY': randY };
         }
         // Otherwise, make sure the new element will not overlap the existing one.
+        // todo fix bug Uncaught TypeError: Cannot read property 'randX' of undefined on line 84
         for (el in emittedElements) {
             x = emittedElements[el].x;
             y = emittedElements[el].y;
