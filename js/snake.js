@@ -37,8 +37,8 @@ define(['utils', 'food', 'board', 'jquery'], function (GameUtils, Food, Board, $
 
     Snake.prototype.drawSnakeHead = function (boardParams) {
         var randomCoordinates = GameUtils.getRandomPosition(boardParams);
-        var head = GameUtils.drawElement(boardParams, randomCoordinates, { name: 'rect', color: snakeColor.head });
-        snake.push(head);
+        snakeHead = GameUtils.drawElement(boardParams, randomCoordinates, { name: 'rect', color: snakeColor.head });
+        snake.push(snakeHead);
     }
 
     // Add the tail if needed.
@@ -63,7 +63,7 @@ define(['utils', 'food', 'board', 'jquery'], function (GameUtils, Food, Board, $
             if (isHead) {
                 newCoordinates = Snake.prototype.calculateHeadNewCoordinates(ev);
             } else {
-                var prevNode = temp[currentElIndex - 1].node;
+                var prevNode = snakeBody[currentElIndex - 1].node;
                 newCoordinates = { 'x': prevNode.x.animVal.value, 'y': prevNode.y.animVal.value }
                 currentElIndex++;
             }
