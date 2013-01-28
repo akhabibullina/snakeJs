@@ -1,4 +1,4 @@
-/**
+﻿/**
 * This class manages the food which firstly generated at the play board and then is eaten by the snake.
 * It only shows 1 piece for a place.
 * @class Food
@@ -10,19 +10,20 @@ define(['utils', 'board', 'jquery'], function (GameUtils, Board, $) {
     var foodColor = '#f00';
     var boardParams;
 
+
     var Food = function () {
         var gameArea = document.getElementById('game-area');
         boardParams = new Board({ "board": gameArea });
         food = this.drawFood(boardParams);
     }
 
+    Food.prototype.getFood = function () {
+        return food || {};
+    }
+
     Food.prototype.drawFood = function (boardParams) {
         var randomCoordinates = GameUtils.getRandomPosition(boardParams);
         return GameUtils.drawElement(boardParams, randomCoordinates, {name: 'circle', color: foodColor});
-    }
-
-    Food.prototype.getFood = function () {
-        return food || {};
     }
 
     Food.prototype.replaceFood = function () {
