@@ -14,5 +14,9 @@ define([], function () {
         this.borderWidth = gamePlayData.board.clientLeft;
     }
 
+    Board.prototype.clear = function() {
+      // todo: add this
+    }
+
     return Board;
 });

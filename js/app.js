@@ -25,6 +25,15 @@ requirejs.config({
             new Snake();
             new Food();
         })
+        
+        $('#pause-fight').click(function(){
+            // todo: add this
+        });
+        
+        $('#restart-fight').click(function(){
+            Snake.prototype.stopMoving();
+            Board.prototype.clear();
+        });
 
         $('#stop-fight').click(function () {
            // http://raphaeljs.com/reference.html#Element.pause
