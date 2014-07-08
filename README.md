@@ -9,6 +9,7 @@ $ Open index.html in any browser
 If you simply want to try snake, go to gh-pages:
 ```
 http://akhabibullina.github.io/snakeJs/
+```
 
 ### Rules
 [TBD]
