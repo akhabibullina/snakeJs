@@ -1,77 +1,23 @@
 <!DOCTYPE html>
 <html>
-
-  <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="SnakeJs : A modification of fairly known Snake game." />
-
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>SnakeJs</title>
-  </head>
-
-  <body>
-
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/akhabibullina/snakeJs">View on GitHub</a>
-
-          <h1 id="project_title">SnakeJs</h1>
-          <h2 id="project_tagline">A modification of fairly known Snake game.</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/akhabibullina/snakeJs/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/akhabibullina/snakeJs/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
+<head>
+    <title>JavaScript Snake</title>
+    <link type="text/css" href="./css/snake.css" rel="stylesheet"/>
+    <link href="css/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+</head>
+<body>
+    <div id="main">
+        <div id="game-area"></div>
     </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>
-<a name="welcome-to-snakejs" class="anchor" href="#welcome-to-snakejs"><span class="octicon octicon-link"></span></a>Welcome to SnakeJs!</h3>
-
-<p>Installation steps:</p>
-
-<pre><code>$ Clone the repo ``` git clone https://github.com/akhabibullina/snakeJs.git ```
-$ Open index.html in any browser
-</code></pre>
-
-<p>If you simply want to try snake, go to gh-pages:</p>
-
-<pre><code>http://akhabibullina.github.io/snakeJs/
-</code></pre>
-
-<h3>
-<a name="rules" class="anchor" href="#rules"><span class="octicon octicon-link"></span></a>Rules</h3>
-
-<p>[TBD]</p>
-
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>Anna Khabibullina(<a href="https://github.com/akhabibullina" class="user-mention">@akhabibullina</a>)</p>
-
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Twitter: _khabibullina
-Email: <a href="mailto:ganna.khabibullina@gmail.com">ganna.khabibullina@gmail.com</a></p>
-      </section>
+    <div id="sidebar">
+        <button id="start-fight">Play Game</button>
+        <button id="stop-fight" disabled>Pause Game</button>
+        <button id="stop-fight" disabled>Stop Game</button>
+        <button id="restart-fight" disabled>Restart game</button>
+        <div id="total-score">Total Score: <span>0</span></div>
     </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">SnakeJs maintained by <a href="https://github.com/akhabibullina">akhabibullina</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-    
-
-  </body>
+    <!-- todo: load rapahel via requireJs-->
+    <script data-main="js/app" src="js/lib/raphael.min.js"></script>
+    <script data-main="js/app" src="js/lib/r.js"></script>
+</body>
 </html>
