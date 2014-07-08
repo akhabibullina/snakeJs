@@ -9,7 +9,7 @@ $ Open index.html in any browser
 If you simply want to try snake, go to gh-pages:
 ```
 http://akhabibullina.github.io/snakeJs/
-
+```
 ### Rules
 [TBD]
 
@@ -18,4 +18,5 @@ Anna Khabibullina(@akhabibullina)
 
 ### Support or Contact
 Twitter: _khabibullina
+
 Email: ganna.khabibullina@gmail.com
