@@ -5,16 +5,21 @@
 
 // todo create a 'defaults' or 'settings' object to store the options.
 // todo: exclude dependencies
-define(['jquery'], function ($) {
+define(['snake', 'food', 'board', 'jquery'], function (Snake, Food, Board, $) {
 
     var radius = 8;
     var side = radius * 2;
     var emittedElements = []; // contains coordinates of already emitted elements.
-    var score = 0;
 
     // Default constructor
     Game = function () {
-
+      var Game = {
+      'snake': new Snake(),
+      'food': new Food(),
+      'board': Board.getInstance(),
+      'score': 0
+      }
+      return Game;
     }
 
     Game.prototype.getEmittedElements = function () {
@@ -30,12 +35,29 @@ define(['jquery'], function ($) {
     }
 
     Game.prototype.getScore = function () {
-        return score;
+        return this.score;
+    }
+
+    Game.prototype.getSnake = function () {
+        return this.snake;
+    }
+
+    Game.prototype.getFood = function () {
+        return this.food;
+    }
+
+    Game.prototype.getGameArea = function () {
+        return document.getElementById('game-area');
     }
 
     Game.prototype.setScore = function (value) {
-        score = value;
+        this.score = value;
         $('#total-score span').text(score);
+    }
+
+    Game.prototype.finish = function () {
+        this.snake.prototype.destroy();
+        this.food.prototype.destroy();
     }
 
     // Display an svg element on play board.
@@ -70,7 +92,6 @@ define(['jquery'], function ($) {
             // Creates a rectangular for snake body element.
             var rect = paper.rect(coordinates.randX, coordinates.randY, side, side);
             rect.attr("fill", elOptions.color);
-
         } else {
             // Creates circle at calculated position with given radius.
             var circle = paper.circle(coordinates.randX, coordinates.randY, radius);
@@ -98,7 +119,7 @@ define(['jquery'], function ($) {
         }
         // Otherwise, make sure the new element will not overlap the existing one.
         // todo fix bug Uncaught TypeError: Cannot read property 'randX' of undefined on line 84
-        for (el in emittedElements) {
+        for (var el in emittedElements) {
             x = emittedElements[el].x;
             y = emittedElements[el].y;
             if (randX > x && randX < x + side) {

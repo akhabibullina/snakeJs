@@ -12,9 +12,9 @@ define(['utils', 'board', 'jquery'], function (GameUtils, Board, $) {
 
 
     var Food = function () {
-        var gameArea = document.getElementById('game-area');
-        boardParams = new Board({ "board": gameArea });
-        food = this.drawFood(boardParams);
+        var board = Board.getInstance();
+        food = this.drawFood(board);
+        return Food;
     }
 
     Food.prototype.getFood = function () {
@@ -27,7 +27,6 @@ define(['utils', 'board', 'jquery'], function (GameUtils, Board, $) {
     }
 
     Food.prototype.replaceFood = function () {
-
         var newCoord = GameUtils.getRandomPosition(boardParams);
         // todo find another way to set cx and cy
         $('circle').attr('cx', newCoord.x);
@@ -46,6 +45,10 @@ define(['utils', 'board', 'jquery'], function (GameUtils, Board, $) {
         });
 
         GameUtils.setEmittedElements(displayedElements);
+    }
+
+    Food.prototype.destroy = function() {
+      document.body.removeChild(food);
     }
 
     return Food;

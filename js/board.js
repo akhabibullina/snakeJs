@@ -1,22 +1,44 @@
 /**
-* This class manages playing board for the game.
-* @class Board
-*/
+ * This class manages playing board for the game.
+ * @class Board
+ */
 
-define([], function () {
+define([], function() {
+  var gamePlayData = document.getElementById('game-area');
 
-    // Constructor
-    var Board = function (gamePlayData) {
-        this.x = gamePlayData.board.offsetTop;
-        this.y = gamePlayData.board.offsetLeft;
-        this.width  = gamePlayData.board.clientWidth;
-        this.height = gamePlayData.board.clientHeight;
-        this.borderWidth = gamePlayData.board.clientLeft;
+  // Constructor
+  var Board = function() {
+
+    // instance of the singleton
+   var singletonInstance = null;
+
+    // Get the instance of the SingletonClass
+    // If there is no instance in this.singletonInstance, instanciate one
+    Board.getInstance = function() {
+      if (!singletonInstance) {
+        // create a instance
+        singletonInstance = createInstance();
+      }
+
+      // return the instance of the singletonClass
+      return singletonInstance;
     }
 
-    Board.prototype.clear = function() {
-      // todo: add this
+    // function for the creation of the SingletonClass class
+    var createInstance = function() {
+      singletonInstance = {
+        'x': gamePlayData.offsetTop,
+        'y': gamePlayData.offsetLeft,
+        'width': gamePlayData.clientWidth,
+        'height': gamePlayData.clientHeight,
+        'borderWidth': gamePlayData.clientLeft
+      };
+      return singletonInstance;
     }
-
-    return Board;
+      // public methodes
+    return {
+      getInstance: Board.getInstance
+    }
+  }
+  return Board();
 });

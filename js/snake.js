@@ -5,7 +5,7 @@
 
 // todo: differ 'snake' from 'tail'
 define(['utils', 'food', 'board', 'jquery'], function (GameUtils, Food, Board, $) {
-    var boardParams;
+    var board = Board.getInstance();
     var snakeHead, tail, snake = [];
     var snakeColor = { 'head': '#006666', 'tail': '#006600' };
     var intId = 0;
@@ -20,24 +20,23 @@ define(['utils', 'food', 'board', 'jquery'], function (GameUtils, Food, Board, $
         if (isDifferentKeyPressed) {
             clearInterval(intId);
             intId = setInterval(function () {
-                Snake.prototype.moveSnake(ev, boardParams)
+                Snake.prototype.moveSnake(ev, board)
             }, speed);
         }
     }
 
     // Constructor
     var Snake = function () {
-        var gameArea = document.getElementById('game-area');
-        boardParams = new Board({ "board": gameArea });
-        this.drawSnakeHead(boardParams);
+        this.drawSnakeHead(board);
         $('body').keydown(function (ev) {
             snakeMoveHandler(ev);
         });
+        return Snake;
     }
 
-    Snake.prototype.drawSnakeHead = function (boardParams) {
-        var randomCoordinates = GameUtils.getRandomPosition(boardParams);
-        snakeHead = GameUtils.drawElement(boardParams, randomCoordinates, { name: 'rect', color: snakeColor.head });
+    Snake.prototype.drawSnakeHead = function (board) {
+        var randomCoordinates = GameUtils.getRandomPosition(board);
+        snakeHead = GameUtils.drawElement(board, randomCoordinates, { name: 'rect', color: snakeColor.head });
         snake.push(snakeHead);
     }
 
@@ -45,7 +44,7 @@ define(['utils', 'food', 'board', 'jquery'], function (GameUtils, Food, Board, $
     Snake.prototype.drawSnakeTail = function () {
         var snakeHeadNode = snakeHead.node.attributes;
         var coordinates = { 'x': parseInt(snakeHeadNode.x.nodeValue), 'y': parseInt(snakeHeadNode.y.nodeValue) };
-        var tail = GameUtils.drawElement(boardParams, coordinates, { name: 'rect', color: snakeColor.tail });
+        var tail = GameUtils.drawElement(board, coordinates, { name: 'rect', color: snakeColor.tail });
         snake.push(tail);
     }
 
@@ -53,7 +52,7 @@ define(['utils', 'food', 'board', 'jquery'], function (GameUtils, Food, Board, $
     // Detect the speed;
     // If it faces food, then call eatFood()
     // If it faces boarder then reset
-    Snake.prototype.moveSnake = function (ev, boardParams) {
+    Snake.prototype.moveSnake = function (ev, board) {
         var isHead = true;
         var newCoordinates, newX, newY;
         // Deep copy of the object
@@ -72,7 +71,7 @@ define(['utils', 'food', 'board', 'jquery'], function (GameUtils, Food, Board, $
             Snake.prototype.animateSnake(snakeEl, newX, newY);
             if (isHead) {
                 Snake.prototype.handleSnakeMeetsFood(newX, newY);
-                Snake.prototype.handleSnakeMeetsBorder(newX, newY, boardParams.width, boardParams.height);
+                Snake.prototype.handleSnakeMeetsBorder(newX, newY, board.width, board.height);
                 isHead = false;
             }
         });
@@ -146,6 +145,11 @@ define(['utils', 'food', 'board', 'jquery'], function (GameUtils, Food, Board, $
     Snake.prototype.stopMoving = function () {
         clearInterval(intId);
         $('body').unbind('keydown');
+    }
+
+    Snake.prototype.destroy = function() {
+      this.stopMoving();
+      document.body.removeChild(snake);
     }
 
     Snake.prototype.increaseScore = function () {
