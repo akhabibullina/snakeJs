@@ -14,9 +14,9 @@ define(['snake', 'food', 'board', 'jquery'], function (Snake, Food, Board, $) {
     // Default constructor
     Game = function () {
       var Game = {
-      'snake': new Snake(),
-      'food': new Food(),
       'board': Board.getInstance(),
+      'snake': Snake.getInstance(),
+      'food':  Food.getInstance(),
       'score': 0
       }
       return Game;
@@ -58,6 +58,11 @@ define(['snake', 'food', 'board', 'jquery'], function (Snake, Food, Board, $) {
     Game.prototype.finish = function () {
         this.snake.prototype.destroy();
         this.food.prototype.destroy();
+    }
+    
+    Game.prototype.stop = function () {
+        // this.snake.prototype.stopMoving();
+        // this.food.prototype.destroy();
     }
 
     // Display an svg element on play board.

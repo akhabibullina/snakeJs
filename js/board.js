@@ -35,7 +35,7 @@ define([], function() {
       };
       return singletonInstance;
     }
-      // public methodes
+    // public methods
     return {
       getInstance: Board.getInstance
     }

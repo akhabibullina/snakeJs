@@ -65,10 +65,10 @@ define(['jquery'], function ($) {
             y = emittedElements[el].y;
             if ( randX > x && randX < x + side ) {
                 randX += side;
-                findBestCoordinates(emittedElements, { 'x': randX, 'y': randY });
+                this.findBestCoordinates(emittedElements, { 'x': randX, 'y': randY });
             } else if ( randY > y && randY < y + side ) {
                 randY += side;
-                findBestCoordinates(emittedElements, { 'x': randX, 'y': randY });
+                this.findBestCoordinates(emittedElements, { 'x': randX, 'y': randY });
             } else {
                 return { 'randX': randX, 'randY': randY };
             }

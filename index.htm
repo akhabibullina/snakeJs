@@ -1,26 +1,3 @@
-<!--<!DOCTYPE html>
-<html>
-<head>
-    <title>JavaScript Snake</title>
-    <link type="text/css" href="./css/snake.css" rel="stylesheet"/>
-    <link href="css/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
-</head>
-<body>
-    <div id="main">
-        <div id="game-area"></div>
-    </div>
-    <div id="sidebar">
-        <button id="start-fight">Go</button>
-        <button id="pause-fight" disabled>Pause</button>
-        <button id="finish-fight" disabled>Finish</button>
-        <div id="total-score">Total Score: <span>0</span></div>
-    </div>
-     todo: load rapahel via requireJs
-    <script data-main="js/app" src="js/lib/raphael.min.js"></script>
-    <script data-main="js/app" src="js/lib/r.js"></script>
-</body>
-</html>-->
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -54,11 +31,11 @@
             <div class="nav">
               <div class="buttons">
                 <button id="start-fight" type="button" class="btn btn-lg btn-default">Start</button>
-                <button id="pause-fight" type="button" class="btn btn-lg btn-default">Pause</button>
-                <button id="finish-fight" type="button" class="btn btn-lg btn-default">Stop</button>
+                <button id="pause-fight" type="button" class="btn btn-lg btn-default" disabled="">Pause</button>
+                <button id="finish-fight" type="button" class="btn btn-lg btn-default" disabled="">Stop</button>
               </div>
 
-              <p class="score-wrapper"><span id="total-score" class="label label-default">Total Score:</span> <span>0</span></p>
+              <p class="score-wrapper"><span id="total-score" class="label label-default">Total Score: <span>0</span></span></p>
             </div>
             <div class="panel panel-info">
 

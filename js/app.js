@@ -22,7 +22,7 @@ requirejs.config({
             $(this).attr('disabled', true);
             $('#pause-fight').removeAttr('disabled');
             $('#finish-fight').removeAttr('disabled');
-            $('#total-score').show();
+            $('.score-wrapper').show();
             new Game();
         })
 
@@ -32,7 +32,7 @@ requirejs.config({
 
         $('#pause-fight').click(function () {
            // http://raphaeljs.com/reference.html#Element.pause
-            Snake.prototype.stopMoving();
+            Game.prototype.stop();
         })
 
 });

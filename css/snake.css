@@ -25,6 +25,7 @@
 }
 
 .score-wrapper {
+    display: none;
     float: right;
 }
 .nav{
