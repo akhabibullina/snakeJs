@@ -4,7 +4,8 @@
  */
 
 define([], function() {
-  var gamePlayData = document.getElementById('game-area');
+  var gamePlayElement = document.getElementById('game-area');
+  var paper = Raphael(gamePlayElement, gamePlayElement.clientWidth, gamePlayElement.clientHeight);
 
   // Constructor
   var Board = function() {
@@ -27,11 +28,12 @@ define([], function() {
     // function for the creation of the SingletonClass class
     var createInstance = function() {
       singletonInstance = {
-        'x': gamePlayData.offsetTop,
-        'y': gamePlayData.offsetLeft,
-        'width': gamePlayData.clientWidth,
-        'height': gamePlayData.clientHeight,
-        'borderWidth': gamePlayData.clientLeft
+        'x': gamePlayElement.offsetTop,
+        'y': gamePlayElement.offsetLeft,
+        'width': gamePlayElement.clientWidth,
+        'height': gamePlayElement.clientHeight,
+        'borderWidth': 0, //gamePlayElement.clientLeft
+        'paper': paper
       };
       return singletonInstance;
     }

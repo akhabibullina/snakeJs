@@ -19,7 +19,7 @@ requirejs.config({
     define(['game', 'jquery'], function(Game, $) {
 
         $('#start-fight').click(function(){
-            $(this).attr('disabled', true);
+            // $(this).attr('disabled', true);
             $('#pause-fight').removeAttr('disabled');
             $('#finish-fight').removeAttr('disabled');
             $('.score-wrapper').show();

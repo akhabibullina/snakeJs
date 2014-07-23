@@ -19,9 +19,10 @@
 .panel-title {
     text-align: center;
 }
+
 #game-area {
    height: 300px;
-   margin: 25px 0 0 25px;
+   margin: 0;
 }
 
 .score-wrapper {
