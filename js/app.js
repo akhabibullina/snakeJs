@@ -27,12 +27,12 @@ requirejs.config({
         })
 
         $('#finish-fight').click(function(){
-            Game.prototype.finish();
+            Game.prototype.stop();
         });
 
         $('#pause-fight').click(function () {
            // http://raphaeljs.com/reference.html#Element.pause
-            Game.prototype.stop();
+            Game.prototype.pause();
         })
 
 });
