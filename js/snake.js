@@ -154,7 +154,7 @@ define(['utils', 'food', 'board', 'jquery'], function(GameUtils, Food, Board, $)
 
             if ((snakeX + side >= foodX && snakeX <= foodX)
                     && (snakeY + side >= foodY && snakeY <= foodY)) {
-                Food.prototype.replaceFood();
+                Food.replaceFood();
                 drawSnakeTail();
                 this.increaseScore();
                 this.increaseSpeed();

@@ -43,8 +43,9 @@ define(['utils', 'board', 'jquery'], function(GameUtils, Board, $) {
             return GameUtils.drawElement(boardParams, randomCoordinates, {name: 'circle', color: foodColor});
         }
 
-        Food.prototype.replaceFood = function() {
-            var newCoord = GameUtils.getRandomPosition(boardParams);
+        Food.replaceFood = function() {
+            var board = Board.getInstance();
+            var newCoord = GameUtils.getRandomPosition(board);
             // todo find another way to set cx and cy
             $('circle').attr('cx', newCoord.x);
             $('circle').attr('cy', newCoord.y);
@@ -70,7 +71,8 @@ define(['utils', 'board', 'jquery'], function(GameUtils, Board, $) {
         // public methodes
         return {
             getInstance: Food.getInstance,
-            getFood: Food.getFood
+            getFood: Food.getFood,
+            replaceFood: Food.replaceFood
         }
     }
 

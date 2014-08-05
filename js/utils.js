@@ -60,7 +60,7 @@ define(['jquery'], function ($) {
         }
         // Otherwise, make sure the new element will not overlap the existing ones.
         // todo fix bug Uncaught TypeError: Cannot read property 'randX' of undefined
-        for (el in emittedElements) {
+        for (var el in emittedElements) {
             x = emittedElements[el].x;
             y = emittedElements[el].y;
             if ( randX > x && randX < x + side ) {
