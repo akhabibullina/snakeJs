@@ -16,28 +16,23 @@ requirejs.config({
 });
 
     // todo: divs, canvas and raphael approaches will be implemented, separate them or add appropriate settings.
-    define(['food', 'snake', 'jquery'], function(Food, Snake, $) {
+    define(['game', 'jquery'], function(Game, $) {
 
         $('#start-fight').click(function(){
             // $(this).attr('disabled', true);
-            $('#stop-fight').removeAttr('disabled');
-            $('#total-score').show();
-            new Snake();
-            new Food();
+            $('#pause-fight').removeAttr('disabled');
+            $('#finish-fight').removeAttr('disabled');
+            $('.score-wrapper').show();
+            new Game();
         })
-        
-        $('#pause-fight').click(function(){
-            // todo: add this
-        });
-        
-        $('#restart-fight').click(function(){
-            Snake.prototype.stopMoving();
-            Board.prototype.clear();
+
+        $('#finish-fight').click(function(){
+            Game.prototype.stop();
         });
 
-        $('#stop-fight').click(function () {
+        $('#pause-fight').click(function () {
            // http://raphaeljs.com/reference.html#Element.pause
-            Snake.prototype.stopMoving();
+            Game.prototype.pause();
         })
 
 });

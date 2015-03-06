@@ -36,9 +36,9 @@ define(['jquery'], function ($) {
        // Generate random x and y coordinates for a new element display.
        getRandomPosition: function (limitCoordinates) {
             // If the game area has border than calculate the available field.
-            var minX = limitCoordinates.x,
+            var minX = 0,
                 maxX = limitCoordinates.width - side,
-                minY = limitCoordinates.y,
+                minY = 0,
                 maxY = limitCoordinates.height - side;
             var x = Math.floor(this.getRandomArbitary(minX, maxX));
             var y = Math.floor(this.getRandomArbitary(minY, maxY));
@@ -60,26 +60,24 @@ define(['jquery'], function ($) {
         }
         // Otherwise, make sure the new element will not overlap the existing ones.
         // todo fix bug Uncaught TypeError: Cannot read property 'randX' of undefined
-        for (el in emittedElements) {
+        for (var el in emittedElements) {
             x = emittedElements[el].x;
             y = emittedElements[el].y;
             if ( randX > x && randX < x + side ) {
                 randX += side;
-                findBestCoordinates(emittedElements, { 'x': randX, 'y': randY });
+                this.findBestCoordinates(emittedElements, { 'x': randX, 'y': randY });
             } else if ( randY > y && randY < y + side ) {
                 randY += side;
-                findBestCoordinates(emittedElements, { 'x': randX, 'y': randY });
+                this.findBestCoordinates(emittedElements, { 'x': randX, 'y': randY });
             } else {
                 return { 'randX': randX, 'randY': randY };
             }
         }
        },
-       drawElement: function (boardParams, randomCoordinates, element) {
-        var availablePaperElements = ['circle', 'rect'];
-        var paperX = boardParams.x + parseInt(boardParams.borderWidth);
-        var paperY = boardParams.y + parseInt(boardParams.borderWidth);
 
-        var paper = Raphael(paperX, paperY, boardParams.width, boardParams.height);
+       drawElement: function (boardParams, randomCoordinates, element) {
+        var paper = boardParams.paper;
+        var availablePaperElements = ['circle', 'rect'];
         var coordinates = this.findBestCoordinates(emittedElements, randomCoordinates);
 
         if (element['name'] === availablePaperElements[0]) {
